@@ -21,7 +21,7 @@ using System.Threading;
 
 namespace SERIAL_TESTFIELD
 {
-    public partial class Form1 : Form
+    public partial class SPIFlash : Form
     {
         private BackgroundWorker chipErase = new BackgroundWorker();
         private BackgroundWorker programChip = new BackgroundWorker();
@@ -41,7 +41,7 @@ namespace SERIAL_TESTFIELD
         bool flag_chip_erase = false;
         bool flag_chip_erased = false;
 
-        public Form1()
+        public SPIFlash()
         {
             InitializeComponent();
             programChip.DoWork += new DoWorkEventHandler(programChip_DoWork);
@@ -73,7 +73,7 @@ namespace SERIAL_TESTFIELD
                 _serialPort.Write("D"); //Get device id and size of source chip
                 System.Threading.Thread.Sleep(100);//Wait for answer little bit
 
-                /*int bytes = _serialPort.BytesToRead;
+                int bytes = _serialPort.BytesToRead;
                 byte[] buffer = new byte[bytes];
 
                 //todo
@@ -83,7 +83,7 @@ namespace SERIAL_TESTFIELD
                 string size = "0x" + buffer[1].ToString("X2");
 
                 labelVendorId.Text = devid;
-                labelChipSize.Text = size;*/
+                labelChipSize.Text = size;
 
                 connection = true;
                 button1.Text = "Disconnect";
@@ -295,6 +295,11 @@ namespace SERIAL_TESTFIELD
             checksum.Text = "0x" + crc32Flash[3].ToString("X2") + crc32Flash[2].ToString("X2") + crc32Flash[1].ToString("X2") + crc32Flash[0].ToString("X2");
             button2.Enabled = true;
             //Calculate CRC32 for entire flash
+        }
+
+        private void labelStatus_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
